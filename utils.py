@@ -1,3 +1,4 @@
+from shutil import move
 from players import Player
 
 def check_who_has_the_first_turn(player1: Player, player2: Player) -> Player:
@@ -24,29 +25,6 @@ def check_who_has_the_first_turn(player1: Player, player2: Player) -> Player:
     # if none of above 
     return player1
 
-def discount_energy_points(player1, player2):
-    """_summary_
-
-    Args:
-        player1 (_type_): _description_
-        player2 (_type_): _description_
-    """
-    #TODO: finish this method
-
-
-def check_energy(player: Player) -> int:
-    """
-    method used at first of each turn to check if the player has enough energy to keep fighting
-
-    Args:
-        player (Player): Player object to check its energy
-
-    Returns:
-        int: Number of energy points left 
-    """
-
-    return player.energy
-
 def get_message_and_energy_to_discount(player_name: str, movement: str, hit: str) -> int:
     """
     Method used to determine the message to show in console and know how many damage was done
@@ -61,37 +39,89 @@ def get_message_and_energy_to_discount(player_name: str, movement: str, hit: str
     """
 
     if player_name == "Tonnyn Stallone":
+        movements_dict = {
+                "A": "Tonnyn Stallone retrocede",
+                "S": "Tonnyn Stallone se agacha",
+                "D": "Tonnyn Stallone avanza",
+                "W": "Tonnyn Stallone salta"
+            }
+
         # Taladoken
         if movement == "DSD" and hit == "P":
             print("Tonnyn Stallone usa un Taladoken!")
             return 3
+
         # Remuyuken
         if movement == "DS" and hit == "P":
             print("Tonnyn Stallone usa un Remuyuken!")
             return 2
         
-        # no movement
-
+        # only hit, no movement 
         if movement == "" and hit != "":
             detail_hit = "una patada!" if hit == "K" else "un puñetazo!"
             print(f"Tonnyn Stallone da {detail_hit}")
             return 1
 
+        #only movement, no hit
+        if movement != "" and hit == "":
+            # if only on button is used
+            if len(movement) == 1:
+                print(movements_dict[movement])
+                return 0
+            else:
+                print("Tonnyn stallone se mueve")
+                return 0
+        
+        # movement and hit, but no special
+        if movement != "" and hit != "":
+            hit_message = "y da una patada" if hit == "K" else "y da un puñetazo"
+            if len(movement) == 1:
+                print(f"{movements_dict[movement]} {hit_message}")
+                return 1
+            else:
+                print(f"Tonnyn Stallone se mueve {hit_message}")
+                return 1
+
     else:
+        movements_dict = {
+                "A": "Arnaldold Schuatseneger avanza",
+                "S": "Arnaldold Schuatseneger se agacha",
+                "D": "Arnaldold Schuatseneger retrocede",
+                "W": "Arnaldold Schuatseneger salta"
+            }
+
         # Taladoken
         if movement == "ASA" and hit == "P":
             print("Arnaldold Schuatseneger usa un Taladoken!")
             return 2
+
         # Remuyuken
         if movement == "SA" and hit == "K":
             print("Arnaldold Scchuatseneger usa un Remuyuken!")
             return 3
         
-        # no movement
-
+        # only hit, no movement
         if movement == "" and hit != "":
             detail_hit = "una patada!" if hit == "K" else "un puñetazo!"
             print(f"Arnaldold Scchuatseneger da {detail_hit}")
             return 1
-        
 
+        #only movement, no hit
+        if movement != "" and hit == "":
+            # if only on button is used
+            if len(movement) == 1:
+                print(movements_dict[movement])
+                return 0
+            else:
+                print("Arnaldold Schuatseneger se mueve")
+                return 0    
+
+        # movement and hit, but no special
+        if movement != "" and hit != "":
+            hit_message = "y da una patada" if hit == "K" else "y da un puñetazo"
+            if len(movement) == 1:
+                print(f"{movements_dict[movement]} {hit_message}")
+                return 1
+            else:
+                print(f"Arnaldold Schuatseneger se mueve {hit_message}")
+                return 1
