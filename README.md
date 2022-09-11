@@ -34,6 +34,7 @@ docker-compose up
 > Si es primera vez que se levanta el proyecto, este se _buildeara_ e instalara todas las dependencias necesarias
 
 Una vez levantado, la pelea comenzará automáticamente
+
 Si en la terminal aparece un mensaje como el siguiente, el proyecto se ha levantado y ejecutado con éxito
 
 ```
